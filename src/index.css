@@ -1,0 +1,139 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-surface: #ffffff;
+  --color-muted: #f4f6f9;
+  --color-brand: #3b66ad;
+  --color-gold: #e8bc55;
+  --color-ink: #0f172a;
+  --color-dark: #0a0a0f;
+  /** Barra superior fija (azul marino presentaciones) */
+  --color-header: #0a1628;
+  /** Franja MarcasAliadas + paneles oscuros */
+  --color-marcas-bg: #121212;
+  --color-marcas-panel: #161616;
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji';
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface text-ink antialiased;
+    font-family: var(--font-sans);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply outline-2 outline-offset-2 outline-header;
+  }
+}
+
+@layer components {
+  /** Antetítulos de sección (fondo claro / variante marca) */
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.2em] text-slate-500 sm:text-sm;
+  }
+  .eyebrow-brand {
+    @apply text-xs font-bold uppercase tracking-[0.2em] text-brand sm:text-sm;
+  }
+  /** Bloque Nosotros (Hero): mismo tamaño que antes */
+  .eyebrow-brand-tight {
+    @apply text-[0.7rem] font-bold uppercase tracking-[0.28em] text-brand sm:text-xs;
+  }
+  .eyebrow-dark {
+    @apply text-xs font-bold uppercase tracking-[0.2em] text-white/45 sm:text-sm;
+  }
+  .eyebrow-muted-dark {
+    @apply text-xs font-bold uppercase tracking-[0.2em] text-slate-400 sm:text-sm;
+  }
+
+  /** Párrafos intro / cuerpo de sección */
+  .section-lead {
+    @apply text-base leading-relaxed text-slate-600 sm:text-lg;
+  }
+  .section-lead-tight {
+    @apply text-sm leading-relaxed text-slate-600 sm:text-base;
+  }
+
+  /** Títulos H2 de bloque (home) */
+  .section-heading-h2 {
+    @apply text-3xl font-bold tracking-tight text-header sm:text-4xl lg:text-[2.35rem] lg:leading-snug;
+  }
+  .section-heading-h2-compact {
+    @apply text-2xl font-bold leading-tight tracking-tight text-header sm:text-3xl lg:text-[1.9rem] lg:leading-snug;
+  }
+
+  /** Ritmo vertical entre Insights y Servicios (valores actuales preservados) */
+  .py-section-insights {
+    @apply pt-24 pb-10 sm:pt-28 sm:pb-12 lg:pt-36 lg:pb-14;
+  }
+  .py-section-servicios {
+    @apply pt-10 pb-24 sm:pt-12 sm:pb-28 lg:pt-14 lg:pb-36;
+  }
+
+  /** CTA dorado alineado con Navbar (cotización) */
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-md border border-gold/35 bg-gold/95 text-sm font-semibold text-header shadow-sm transition-[transform,box-shadow,background-color,border-color] hover:scale-[1.01] hover:border-gold/55 hover:bg-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold;
+  }
+  .btn-gold--default {
+    @apply px-5 py-2.5 sm:px-6;
+  }
+  .btn-gold--nav {
+    @apply px-3.5 py-1.5;
+  }
+  .btn-gold--nav-sm {
+    @apply px-2.5 py-1 text-[11px] font-bold;
+  }
+}
+
+@layer utilities {
+  .section-y {
+    @apply py-24 sm:py-28 lg:py-36;
+  }
+
+  .prose-width {
+    max-width: 42rem;
+  }
+
+  /** Carrusel horizontal de logos (MarcasAliadas): bucle al 50% del ancho duplicado */
+  @keyframes marquee-logos {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee-logos {
+    animation: marquee-logos 42s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee-logos {
+      animation: none;
+    }
+  }
+}
+
+/* Vista pública de propuesta: impresión / guardar como PDF */
+@media print {
+  .public-proposal-page {
+    background: #fff !important;
+    padding: 0 !important;
+  }
+
+  .public-proposal-page .proposal-document-shell {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    max-width: none !important;
+  }
+}
